@@ -1,0 +1,13 @@
+# Python junk
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# Large data/Test files
+# Add the name of the folder where you kept the files you were organizing!
+test_files/ 
+large_data/
+
+# System files
+.DS_Store
