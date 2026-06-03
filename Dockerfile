@@ -1,10 +1,14 @@
-# Build stage using Maven
-FROM maven:3.8.5-openjdk-17 AS build
-COPY . .
-RUN mvn clean package -DskipTests
-
-# Run stage using OpenJDK
+# Step 1: Use an OpenJDK image to compile and run
 FROM openjdk:17-jdk-slim
-COPY --from=build /target/*.jar app.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Step 2: Set the working directory inside the container
+WORKDIR /app
+
+# Step 3: Copy all project files into the container
+COPY . .
+
+# Step 4: Compile the Java files from the src directory
+RUN javac src/organizer/*.java -d .
+
+# Step 5: Run the Main class (pointing to the package structure)
+ENTRYPOINT ["java", "organizer.Main"]
